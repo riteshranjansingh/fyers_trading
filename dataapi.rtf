@@ -1,0 +1,1863 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fmodern\fcharset0 Courier;
+\f3\fswiss\fcharset0 Helvetica-BoldOblique;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red0\green0\blue0;
+\red213\green213\blue213;\red220\green34\blue41;\red29\green38\blue42;\red249\green249\blue249;\red37\green30\blue141;
+}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;
+\cssrgb\c86667\c86667\c86667;\cssrgb\c89804\c22353\c20784;\cssrgb\c14902\c19608\c21961\c5098;\cssrgb\c98039\c98039\c98039;\cssrgb\c19608\c19608\c62353;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww23040\viewh16160\viewkind0
+\deftab720
+\pard\pardeftab720\sa400\partightenfactor0
+
+\f0\fs37\fsmilli18857 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 History\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs28 \cf2 The historical API provides archived data (up to date) for the symbols. across various exchanges within the given range. A historical record is presented in the form of a candle and the data is available in different resolutions like - minute, 10 minutes, 60 minutes...240 minutes and daily.\cb1 \
+\uc0\u8232 
+\f1\b \cb3 To Handle partial Candle
+\f0\b0 \cb1 \
+\cb3 To receive completed candle data, it is important to send a timestamp that comes before the current minute. If you send a timestamp for the current minute, you will receive partial data because the minute is not yet finished. Therefore, it is recommended to always use a "range_to" timestamp of the previous minute to ensure that you receive the completed candle data.\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf2 \cb3 Example:
+\f0\b0 \cb1 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 Current Time(seconds can be 1-59): 12:10:20 PM\cb1 \
+\cb3 Input for history will be:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 range_from: 12:08:00 PM\cb1 \
+\ls1\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 range_to: Current Time - 1 minute = 12:09:20 PM\cb1 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 So you will get 2 candles - 12:08 PM and 12:09 PM candles. This example is for 1-minute candles; for other resolutions, you have to subtract the resolution time from "range_to" to get completed candles only.\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf2 \cb3 Limits for History
+\f0\b0 \cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Unlimited number of stocks history data can be downloaded in a day.\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Up to 100 days of data per request for resolutions of 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 120, 180, and 240 minutes. Data is available from July 3, 2017.\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 For 1D resolutions up to 366 days of data per request for 1D (1 day) resolutions.\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 For Seconds Charts the history will be available only for 30-Trading Days\cb1 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa120\partightenfactor0
+
+\fs44 \cf2 \cb3 \strokec2 Request Attribute\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clshdrawnil \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clshdrawnil \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 symbol*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Mandatory.\cf0 \cb1 \
+\cf2 \cb3 Eg: NSE:SBIN-EQ\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 resolution*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 The candle resolution. Possible values are: Day : \'93D\'94 or \'931D\'94\cf0 \cb1 \
+\cf2 \cb3 5 seconds : \'935S\'94\cf0 \cb1 \
+\cf2 \cb3 10 seconds : \'9310S\'94\cf0 \cb1 \
+\cf2 \cb3 15 seconds : \'9315S\'94\cf0 \cb1 \
+\cf2 \cb3 30 seconds : \'9330S\'94\cf0 \cb1 \
+\cf2 \cb3 45 seconds : \'9345S\'94\cf0 \cb1 \
+\cf2 \cb3 1 minute : \'931\'94\cf0 \cb1 \
+\cf2 \cb3 2 minute : \'932"\cf0 \cb1 \
+\cf2 \cb3 3 minute : "3"\cf0 \cb1 \
+\cf2 \cb3 5 minute : "5"\cf0 \cb1 \
+\cf2 \cb3 10 minute : "10"\cf0 \cb1 \
+\cf2 \cb3 15 minute : "15"\cf0 \cb1 \
+\cf2 \cb3 20 minute : "20"\cf0 \cb1 \
+\cf2 \cb3 30 minute : "30"\cf0 \cb1 \
+\cf2 \cb3 60 minute : "60"\cf0 \cb1 \
+\cf2 \cb3 120 minute : "120"\cf0 \cb1 \
+\cf2 \cb3 240 minute : "240"\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 date_format*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 date_format is a boolean flag. 0 to enter the epoch value. Eg:670073472. 1 to enter the date format as yyyy-mm-dd.\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 range_from*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Indicating the start date of records. Accepts epoch value if date_format flag is set to 0. Eg: range_from: 670073472\cf0 \cb1 \
+\cf2 \cb3 Accepts yyyy-mm-dd format if date_format flag is set to 1. Eg: 2021-01-01\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 range_to*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Indicating the end date of records. Accepts epoch value if date_format flag is set to 0. Eg: range_to: 1622028732\cf0 \cb1 \
+\cf2 \cb3 Accepts yyyy-mm-dd format if date_format flag is set to 1. Eg:2021-03-01\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 cont_flag*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 set cont flag 1 for continues data and future options.\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1536\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth11807\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oi_flag
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 set flag to "1" enable oi as a part of candle.\cf0 \cb1 \cell \lastrow\row
+\pard\pardeftab720\sa120\partightenfactor0
+
+\fs44 \cf2 \cb3 \strokec2 Response Attribute\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth1872\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth8237\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth1872\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth8237\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 s
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 ok / error\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth1872\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth8237\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 Candels
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 array\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Candles data containing array of following data for particular time stamp:\cf0 \cb1 \
+\cf2 \cb3 1.Current epoch time\cf0 \cb1 \
+\cf2 \cb3 2. Open Value\cf0 \cb1 \
+\cf2 \cb3 3.Highest Value\cf0 \cb1 \
+\cf2 \cb3 4.Lowest Value\cf0 \cb1 \
+\cf2 \cb3 5.Close Value\cf0 \cb1 \
+\cf2 \cb3 6.Total traded quantity (volume)\cf0 \cb1 \cell \lastrow\row
+\pard\pardeftab720\sa400\partightenfactor0
+
+\fs37\fsmilli18857 \cf2 \cb3 \outl0\strokewidth0 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs28 \cf2 from fyers_apiv3 import fyersModel\
+\
+client_id = "XC4XXXXM-100"\
+access_token = "eyJ0eXXXXXXXX2c5-Y3RgS8wR14g"\
+\
+# Initialize the FyersModel instance with your client_id, access_token, and enable async mode\
+fyers = fyersModel.FyersModel(client_id=client_id, is_async=False, token=access_token, log_path="")\
+\
+data = \{\
+    "symbol":"NSE:SBIN-EQ",\
+    "resolution":"D",\
+    "date_format":"0",\
+    "range_from":"1690895316",\
+    "range_to":"1691068173",\
+    "cont_flag":"1"\
+\}\
+\
+response = fyers.history(data=data)\
+print(response)\
+\
+\
+\
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+Sample Success Response \
+------------------------------------------------------------------------------------------------------------------------------------------\
+\{\
+  "candles":[\
+      [\
+        1690934400,\
+        609.85,\
+        610.5,\
+        594.1,\
+        598.45,\
+        14977497\
+      ],\
+      [\
+        1691020800,\
+        598.7,\
+        600.85,\
+        585,\
+        590.5,\
+        27774877\
+      ]\
+  ],\
+  "code":200,\
+  "message":"",\
+  "s":"ok"\
+\}\
+\pard\pardeftab720\sa400\partightenfactor0
+\ls3\ilvl0
+\fs37\fsmilli18857 \cf2 \cb3 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Quotes\
+\pard\pardeftab720\sa240\partightenfactor0
+\ls3\ilvl0
+\fs28 \cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 The Quotes API retrieves the full market quotes for one or more symbols provided by the user.\cb1 \
+\pard\pardeftab720\sa120\partightenfactor0
+\ls3\ilvl0
+\fs44 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Request attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2028\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clshdrawnil \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clshdrawnil \clwWidth5647\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f1\b\fs24 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 *
+\f3\i Description
+\f1\i0 \cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2028\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth5647\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\b0\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 symbols*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Maximum symbol limit is 50. Eg: NSE:SBIN-EQ.\cf0 \cb1 \cell \lastrow\row
+\pard\pardeftab720\sa120\partightenfactor0
+\ls3\ilvl0
+\fs44 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Response attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f1\b\fs24 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\b0\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 s
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 ok / error\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 ch
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Change value\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 chp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Percentage of change between the current value and the previous day's market close\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 lp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Last traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 spread
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Difference between lowest asking and highest bidding price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 ask
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Asking price for the symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 bid
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Bidding price for the symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 open_price
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Price at market opening time\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 high_price
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Highest price for the day\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 low_price
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Lowest price for the day\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 prev_close_price
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Previous closing price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 atp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Average traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 volume
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Volume traded\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 short_name
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Short name for the symbol Eg: \'93SBIN-EQ\'94\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 exchange
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Name of the exchange. Eg: \'93NSE\'94 or \'93BSE\'94\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 description
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Description of the symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 original_name
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Original name of the symbol name provided by the use\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 symbol
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Symbol name provided by the user\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 fyToken
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Unique token for each symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 tt
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Today\'92s time\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth3276\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 cmd
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 dict\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\ls3\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 ---Deprecated---\cf0 \cb1 \cell \lastrow\row
+\pard\tx720\pardeftab720\partightenfactor0
+
+\fs28 \cf2 \outl0\strokewidth0 \
+from fyers_apiv3 import fyersModel\
+\
+client_id = "XC4XXXXM-100"\
+access_token = "eyJ0eXXXXXXXX2c5-Y3RgS8wR14g"\
+# Initialize the FyersModel instance with your client_id, access_token, and enable async mode\
+fyers = fyersModel.FyersModel(client_id=client_id, token=access_token,is_async=False, log_path="")\
+\
+data = \{\
+    "symbols":"NSE:SBIN-EQ,NSE:IDEA-EQ"\
+\}\
+\
+response = fyers.quotes(data=data)\
+print(response)\
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+ Sample Success Response \
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+  \{\
+    "code":200,\
+    "d":[\
+        \{\
+          "n":"NSE:SBIN-EQ",\
+          "s":"ok",\
+          "v":\{\
+              "ask":0,\
+              "bid":590.5,\
+              "ch":-7.95,\
+              "chp":-1.33,\
+              "description":"NSE:SBIN-EQ",\
+              "exchange":"NSE",\
+              "fyToken":"10100000003045",\
+              "high_price":600.85,\
+              "low_price":585,\
+              "lp":590.5,\
+              "open_price":598.7,\
+              "original_name":"NSE:SBIN-EQ",\
+              "prev_close_price":598.45,\
+              "atp": 428.07\
+              "short_name":"SBIN-EQ",\
+              "spread":-590.5,\
+              "symbol":"NSE:SBIN-EQ",\
+              "tt":"1691020800",\
+              "volume":27774877\
+          \}\
+        \},\
+        \{\
+          "n":"NSE:IDEA-EQ",\
+          "s":"ok",\
+          "v":\{\
+              "ask":7.85,\
+              "bid":0,\
+              "ch":-0.05,\
+              "chp":-0.63,\
+              "description":"NSE:IDEA-EQ",\
+              "exchange":"NSE",\
+              "fyToken":"101000000014366",\
+              "high_price":8.05,\
+              "low_price":7.8,\
+              "lp":7.85,\
+              "open_price":7.9,\
+              "original_name":"NSE:IDEA-EQ",\
+              "prev_close_price":7.9,\
+              "atp": 7.5\
+              "short_name":"IDEA-EQ",\
+              "spread":7.85,\
+              "symbol":"NSE:IDEA-EQ",\
+              "tt":"1691020800",\
+              "volume":78116800\
+          \}\
+        \}\
+    ],\
+    "message":"",\
+    "s":"ok"\
+  \}\
+\
+\
+\pard\pardeftab720\sa400\partightenfactor0
+
+\fs37\fsmilli18857 \cf2 \cb3 \outl0\strokewidth0 \strokec2 Market Depth\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs28 \cf2 The Market Depth API returns the complete market data of the symbol provided. It will include the quantity, OHLC values, and Open Interest fields, and bid/ask prices.\cb1 \
+\pard\pardeftab720\sa120\partightenfactor0
+
+\fs44 \cf2 \cb3 \strokec2 Request attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clshdrawnil \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clshdrawnil \clwWidth8391\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth8391\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 symbol*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Mandatory.\cf0 \cb1 \
+\cf2 \cb3 Eg: NSE:SBIN-EQ\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth8391\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ohlcv_flag*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Set the ohlcv_flag to 1 to get open, high, low, closing and volume quantity'\cf0 \cb1 \cell \lastrow\row
+\pard\pardeftab720\sa120\partightenfactor0
+
+\fs44 \cf2 \cb3 \strokec2 Response attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 s
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 ok / error\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 code
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 This is the code to identify specific responses\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 totalbuyqty
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Total buying quantity\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 totalsellqty
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Total selling quantity\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 bids
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 array\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Bidding price along with volume and total number of orders\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ask
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 array\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Offer price with volume and total number of orders\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 o
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Price at market opening time\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 h
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Highest price for the day\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 i
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Lowest price for the day\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 c
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Price at the of market closing\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 chp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Percentage of change between the current value and the previous day's market close\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 tick_Size
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Minimum price multiplier\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ch
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Change value\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltq
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Last traded quantity\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltt
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Last traded time\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Last traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 v
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Volume traded\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 atp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Average traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 lower_ckt
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Lower circuit price`\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 upper_ckt
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 upper circuit price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 expiry
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Expiry date\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oiflag
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 bool\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Boolean flag for OI data, true or false\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 pdoi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 previous day open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth9604\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oipercent
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Change in open Interest percentage\cf0 \cb1 \cell \lastrow\row
+\pard\tx720\pardeftab720\partightenfactor0
+
+\fs28 \cf2 \outl0\strokewidth0 \
+from fyers_apiv3 import fyersModel\
+\
+\
+client_id = "XC4XXXXM-100"\
+access_token = "eyJ0eXXXXXXXX2c5-Y3RgS8wR14g"\
+\
+# Initialize the FyersModel instance with your client_id, access_token, and enable async mode\
+fyers = fyersModel.FyersModel(client_id=client_id, token=access_token,is_async=False, log_path="")\
+\
+data = \{\
+    "symbol":"NSE:SBIN-EQ",\
+    "ohlcv_flag":"1"\
+\}\
+\
+response = fyers.depth(data=data)\
+print(response)\
+\
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+ Sample Success Response \
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+ \{\
+ "s": "ok",\
+ "d": \{\
+     "NSE:SBIN-EQ": \{\
+         "totalbuyqty": 2396063,\
+         "totalsellqty": 4990001,\
+         "bids": [\
+             \{\
+                 "price": 427.25,\
+                 "volume": 4738,\
+                 "ord": 5\
+             \},\
+             \{\
+                 "price": 427.2,\
+                 "volume": 2631,\
+                 "ord": 9\
+             \},\
+             \{\
+                 "price": 427.15,\
+                 "volume": 6366,\
+                 "ord": 19\
+             \},\
+             \{\
+                 "price": 427.1,\
+                 "volume": 6344,\
+                 "ord": 18\
+             \},\
+             \{\
+                 "price": 427.05,\
+                 "volume": 8136,\
+                 "ord": 16\
+             \}\
+         ],\
+         "ask": [\
+             \{\
+                 "price": 427.4,\
+                 "volume": 2193,\
+                 "ord": 4\
+             \},\
+             \{\
+                 "price": 427.45,\
+                 "volume": 5406,\
+                 "ord": 19\
+             \},\
+             \{\
+                 "price": 427.5,\
+                 "volume": 15311,\
+                 "ord": 57\
+             \},\
+             \{\
+                 "price": 427.55,\
+                 "volume": 11170,\
+                 "ord": 17\
+             \},\
+             \{\
+                 "price": 427.6,\
+                 "volume": 7272,\
+                 "ord": 25\
+             \}\
+         ],\
+         "o": 430.5,\
+         "h": 433.65,\
+         "l": 423.6,\
+         "c": 425.2,\
+         "chp": 0.48,\
+         "tick_Size": 0.05,\
+         "ch": 2.05,\
+         "ltq": 20,\
+         "ltt": 1622184920,\
+         "ltp": 427.25,\
+         "v": 39163870,\
+         "atp": 428.07,\
+         "lower_ckt": 382.7,\
+         "upper_ckt": 467.7,\
+         "expiry": "",\
+         "oi": 0,\
+         "oiflag": false,\
+         "pdoi": 0,\
+         "oipercent": 0.0\
+     \}\
+ \},\
+  "message": ""\
+  \}\
+\
+\
+\pard\pardeftab720\sa400\partightenfactor0
+
+\fs37\fsmilli18857 \cf2 \cb3 \outl0\strokewidth0 \strokec2 Option Chain\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\fs28 \cf2 The Optionchain API provides important information about options trading, specifically focusing on strike prices, which are predetermined prices at which an option contract can be exercised. This API offers data for both Call (CE) and Put (PE) options, along with values for index, IndiaVIX (Volatility Index) and available expiry dates. When using the API, you can specify the number of strike prices you're interested in. For example, if you request a strike count of 2, the API will return data for:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0
+\f1\b \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 At-The-Money (ATM) strike:
+\f0\b0 \'a0The closest strike price to the current market price.\cb1 \
+\ls4\ilvl0
+\f1\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Out-of-The-Money (OTM) strikes:
+\f0\b0 \'a0Strike prices higher than the current market price for Calls (CE) and lower than the current market price for Puts (PE). The API will return data for 2 CE and 2 PE OTM strikes.\cb1 \
+\ls4\ilvl0
+\f1\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 In-The-Money (ITM) strikes:
+\f0\b0 \'a0Strike prices lower than the current market price for Calls (CE) and higher than the current market price for Puts (PE). The API will return data for 2 CE and 2 PE ITM strikes.\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 .
+\fs44 \cf2 \cb1 \strokec2 \
+\pard\pardeftab720\sa120\partightenfactor0
+\cf2 \cb3 Request attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clshdrawnil \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clshdrawnil \clwWidth5055\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth5055\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 symbol*
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Mandatory.\cf0 \cb1 \
+\cf2 \cb3 Eg: NSE:SBIN-EQ\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth5055\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 strikecount
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Options strike count for symbol(MAX = 50)\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2496\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth5055\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 timestamp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Options chain data at timestamp'\cf0 \cb1 \cell \lastrow\row
+\pard\pardeftab720\sa120\partightenfactor0
+
+\fs44 \cf2 \cb3 \strokec2 Response attributes\cb1 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf2 \cb3 \strokec4 Attribute\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Data Type\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf6 \cb7 \strokec6 s
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 ok / error\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 code
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 This is the code to identify specific responses\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 callOi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Total open interest for call options\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 putOi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Total open interest for put options\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 date
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Expiry date in DD-MM-YYYY\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 expiry
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Expiry timestamp\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ask
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Ask price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 bid
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Bid price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 description
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Description of the stock\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ex_symbol
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Exchange Symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 exchange
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 The exchange in which order is placed.\cf0 \cb1 \
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://myapi.fyers.in/docsv3#tag/Appendix/Exchanges"}}{\fldrslt \cf9 \cb3 \strokec9 View Details}}\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 fytoken
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Fytoken is a unique identifier for every symbol.\cf0 \cb1 \
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://myapi.fyers.in/docsv3#tag/Appendix/Fytoken"}}{\fldrslt \cf9 \cb3 \strokec9 View Details}}\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 LTP is the price from which the next sale of the stocks happens\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltpch
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Change in last traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 ltpchp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Percentage change in last traded price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 option_type
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Type of option (if applicable)\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 strike_price
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Strike price (if applicable)\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 symbol
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 string\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Symbol\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 fp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Future price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 fpch
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Change in future price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 fpchp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Percentage change in future price\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oich
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Change in Open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 oichp
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 float\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Percentage change in Open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat3 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat3 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat3 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 prev_oi
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Previous Open interest\cf0 \cb1 \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat8 \clwWidth2652\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx2880
+\clvertalc \clcbpat8 \clwWidth1669\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx5760
+\clvertalc \clcbpat8 \clwWidth7241\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf5 \clbrdrl\brdrs\brdrw20\brdrcf5 \clbrdrb\brdrs\brdrw20\brdrcf5 \clbrdrr\brdrs\brdrw20\brdrcf5 \clpadt120 \clpadl260 \clpadb120 \clpadr260 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \strokec6 volume
+\f0\fs24 \cf0 \cb1 \strokec4 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 int\cf0 \cb1 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \cb3 Volume traded\cf0 \cb1 \cell \lastrow\row
+\pard\tx720\pardeftab720\partightenfactor0
+
+\fs28 \cf2 \outl0\strokewidth0 \
+\
+from fyers_apiv3 import fyersModel\
+client_id = "YYYYYYY-100"\
+access_token = "XXXXXXXXXXXXX"\
+# Initialize the FyersModel instance with your client_id, access_token, and enable async mode\
+fyers = fyersModel.FyersModel(client_id=client_id, token=access_token,is_async=False, log_path="")\
+data = \{\
+    "symbol":"NSE:TCS-EQ",\
+    "strikecount":1,\
+    "timestamp": ""\
+\}\
+response = fyers.optionchain(data=data);\
+print(response)\
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+ Sample Success Response \
+ ------------------------------------------------------------------------------------------------------------------------------------------\
+ \{\
+  "code": 200,\
+  "data": \{\
+    "callOi": 10038175,\
+    "expiryData": [\
+      \{\
+        "date": "25-04-2024",\
+        "expiry": "1714039200"\
+      \},\
+      \{\
+        "date": "30-05-2024",\
+        "expiry": "1717063200"\
+      \},\
+      \{\
+        "date": "27-06-2024",\
+        "expiry": "1719482400"\
+      \}\
+    ],\
+    "indiavixData": \{\
+      "ask": 0,\
+      "bid": 0,\
+      "description": "INDIAVIX-INDEX",\
+      "ex_symbol": "INDIAVIX",\
+      "exchange": "NSE",\
+      "fyToken": "101000000026017",\
+      "ltp": 10.55,\
+      "ltpch": -2.15,\
+      "ltpchp": -16.93,\
+      "option_type": "",\
+      "strike_price": -1,\
+      "symbol": "NSE:INDIAVIX-INDEX"\
+    \},\
+    "optionsChain": [\
+      \{\
+        "ask": 3880.15,\
+        "bid": 3880.05,\
+        "description": "TATA CONSULTANCY SERV LT",\
+        "ex_symbol": "TCS",\
+        "exchange": "NSE",\
+        "fp": 3876.65,\
+        "fpch": 14.2,\
+        "fpchp": 0.37,\
+        "fyToken": "101000000011536",\
+        "ltp": 3880.15,\
+        "ltpch": 15.55,\
+        "ltpchp": 0.4,\
+        "option_type": "",\
+        "strike_price": -1,\
+        "symbol": "NSE:TCS-EQ"\
+      \},\
+      \{\
+        "ask": 34.9,\
+        "bid": 34.35,\
+        "fyToken": "1011240425139431",\
+        "ltp": 34.8,\
+        "ltpch": 2.7,\
+        "ltpchp": 8.41,\
+        "oi": 99575,\
+        "oich": -3325,\
+        "oichp": -3.23,\
+        "option_type": "CE",\
+        "prev_oi": 102900,\
+        "strike_price": 3860,\
+        "symbol": "NSE:TCS24APR3860CE",\
+        "volume": 202650\
+      \},\
+      \{\
+        "ask": 19.3,\
+        "bid": 19,\
+        "fyToken": "1011240425139432",\
+        "ltp": 19.05,\
+        "ltpch": -12.4,\
+        "ltpchp": -39.43,\
+        "oi": 159075,\
+        "oich": 28525,\
+        "oichp": 21.85,\
+        "option_type": "PE",\
+        "prev_oi": 130550,\
+        "strike_price": 3860,\
+        "symbol": "NSE:TCS24APR3860PE",\
+        "volume": 304150\
+      \},\
+      \{\
+        "ask": 24.85,\
+        "bid": 24.55,\
+        "fyToken": "1011240425133432",\
+        "ltp": 24.95,\
+        "ltpch": -0.55,\
+        "ltpchp": -2.16,\
+        "oi": 165900,\
+        "oich": 9975,\
+        "oichp": 6.4,\
+        "option_type": "CE",\
+        "prev_oi": 155925,\
+        "strike_price": 3880,\
+        "symbol": "NSE:TCS24APR3880CE",\
+        "volume": 543025\
+      \},\
+      \{\
+        "ask": 29.35,\
+        "bid": 28.8,\
+        "fyToken": "1011240425133433",\
+        "ltp": 29.2,\
+        "ltpch": -14.1,\
+        "ltpchp": -32.56,\
+        "oi": 98175,\
+        "oich": 28350,\
+        "oichp": 40.6,\
+        "option_type": "PE",\
+        "prev_oi": 69825,\
+        "strike_price": 3880,\
+        "symbol": "NSE:TCS24APR3880PE",\
+        "volume": 199500\
+      \},\
+      \{\
+        "ask": 17.8,\
+        "bid": 17.6,\
+        "fyToken": "1011240425139433",\
+        "ltp": 17.75,\
+        "ltpch": -1.4,\
+        "ltpchp": -7.31,\
+        "oi": 631050,\
+        "oich": 23275,\
+        "oichp": 3.83,\
+        "option_type": "CE",\
+        "prev_oi": 607775,\
+        "strike_price": 3900,\
+        "symbol": "NSE:TCS24APR3900CE",\
+        "volume": 981925\
+      \},\
+      \{\
+        "ask": 42.45,\
+        "bid": 41.85,\
+        "fyToken": "1011240425139434",\
+        "ltp": 41.75,\
+        "ltpch": -14.65,\
+        "ltpchp": -25.98,\
+        "oi": 338100,\
+        "oich": -9975,\
+        "oichp": -2.87,\
+        "option_type": "PE",\
+        "prev_oi": 348075,\
+        "strike_price": 3900,\
+        "symbol": "NSE:TCS24APR3900PE",\
+        "volume": 129325\
+      \}\
+    ],\
+    "putOi": 3875200\
+  \},\
+  "message": "",\
+  "s": "ok"\
+\}\
+\
+}

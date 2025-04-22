@@ -2,27 +2,35 @@
 Test script for FYERS API connection
 """
 from src.api.connection import FyersConnection
+import json
 
 def main():
     # Initialize connection
     print("Initializing FYERS API connection...")
     conn = FyersConnection()
     
-    # Connect to API
-    session = conn.connect()
-    
-    # Check if connection is successful
-    if session:
-        print("Connection successful!")
+    # Authenticate and get session
+    print("Authenticating with FYERS API...")
+    if conn.authenticate():
+        print("Authentication successful!")
         
-        # Test by fetching profile
-        profile = session.get_profile()
-        if "code" in profile and profile["code"] == 200:
-            print(f"Profile data: {profile['data']}")
+        # Get the session
+        session = conn.get_session()
+        
+        # Check if connection is successful
+        if session:
+            print("Connection successful!")
+            
+            # Test by fetching profile
+            profile = session.get_profile()
+            if profile.get("s") == "ok":
+                print(f"\nProfile data: {json.dumps(profile['data'], indent=2)}")
+            else:
+                print(f"Failed to fetch profile: {profile}")
         else:
-            print(f"Failed to fetch profile: {profile}")
+            print("Connection failed!")
     else:
-        print("Connection failed!")
+        print("Authentication failed!")
 
 if __name__ == "__main__":
     main()
