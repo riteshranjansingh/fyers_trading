@@ -52,3 +52,7 @@ data/temp/*
 # Coverage reports
 .coverage
 htmlcov/
+
+
+# json files
+**/*.json
