@@ -1,11 +1,14 @@
 # Virtual environment
 venv/
 env/
+.env
+.venv
 
 # Python cache files
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
@@ -25,3 +28,27 @@ build/
 
 # Log files
 *.log
+logs/
+fyersApi.log
+fyersRequests.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.idea/
+.vscode/
+*.sublime-*
+.project
+.pydevproject
+
+# Data files (while preserving structure)
+data/historical/*
+data/temp/*
+!data/historical/.gitkeep
+!data/temp/.gitkeep
+
+# Coverage reports
+.coverage
+htmlcov/
