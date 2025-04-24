@@ -1,11 +1,11 @@
 """
 FYERS API v3 connection module - Robust version
 """
+
 import os
 import sys
 import json
 import time
-import logging
 from datetime import datetime, timedelta
 import webbrowser
 from urllib.parse import urlparse, parse_qs
@@ -15,9 +15,27 @@ from fyers_apiv3 import fyersModel
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from config.credentials import FYERS_APP_ID, FYERS_APP_SECRET, FYERS_CLIENT_ID, FYERS_REDIRECT_URI
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# Import and use centralized logging configuration
+from src.utils.logging_config import setup_logging
+logger = setup_logging()
+
+# import os
+# import sys
+# import json
+# import time
+# import logging
+# from datetime import datetime, timedelta
+# import webbrowser
+# from urllib.parse import urlparse, parse_qs
+# from fyers_apiv3 import fyersModel
+
+# # Add the project root to the path to import config
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+# from config.credentials import FYERS_APP_ID, FYERS_APP_SECRET, FYERS_CLIENT_ID, FYERS_REDIRECT_URI
+
+# # Configure logging
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# logger = logging.getLogger(__name__)
 
 class FyersConnection:
     """
@@ -194,12 +212,31 @@ class FyersConnection:
             return False
         
         try:
-            self.fyers = fyersModel.FyersModel(client_id=self.app_id, token=self.access_token)
+            # Define logs directory
+            logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
+            os.makedirs(logs_dir, exist_ok=True)
+            
+            # Pass just the directory, not the full file path
+            self.fyers = fyersModel.FyersModel(client_id=self.app_id, token=self.access_token, log_path=logs_dir)
             logger.info("FYERS session created successfully")
             return True
         except Exception as e:
             logger.error(f"Error creating FYERS session: {str(e)}")
             return False
+
+    # def _create_session(self):
+    #     """Create FYERS API session"""
+    #     if not self.access_token:
+    #         logger.error("No access token available")
+    #         return False
+        
+    #     try:
+    #         self.fyers = fyersModel.FyersModel(client_id=self.app_id, token=self.access_token)
+    #         logger.info("FYERS session created successfully")
+    #         return True
+    #     except Exception as e:
+    #         logger.error(f"Error creating FYERS session: {str(e)}")
+    #         return False
     
     def get_session(self):
         """

@@ -33,28 +33,34 @@ class SymbolManager:
         "MCX_COM": "https://public.fyers.in/sym_details/MCX_COM_sym_master.json"
     }
     
+    # In symbol_manager.py, modify the __init__ method
     def __init__(self, 
-                 symbol_files: Optional[Dict[str, str]] = None, 
-                 download_missing: bool = True,
-                 cache_dir: str = None):
+                symbol_files: Optional[Dict[str, str]] = None, 
+                download_missing: bool = True,
+                cache_dir: str = None):
         """
         Initialize the SymbolManager.
         
         Args:
             symbol_files: Dictionary mapping segment names to file paths
-                          Example: {"NSE_CM": "path/to/nse_cm.json"}
+                        Example: {"NSE_CM": "path/to/nse_cm.json"}
             download_missing: Whether to download missing files from FYERS
             cache_dir: Directory to store downloaded symbol files
         """
         self.symbols = {}  # Will hold all symbol data by segment
         self.lookup_cache = {}  # For quick lookups by criteria
         
-        # Set up cache directory
-        self.cache_dir = cache_dir or os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
-            "data", 
-            "symbols"
-        )
+        # Set up cache directory to use project root's data/symbols
+        if cache_dir:
+            self.cache_dir = cache_dir
+        else:
+            # Go up multiple levels to reach project root from src/api
+            current_dir = os.path.dirname(os.path.abspath(__file__))  # src/api
+            parent_dir = os.path.dirname(current_dir)                 # src
+            project_root = os.path.dirname(parent_dir)                # project root
+            
+            self.cache_dir = os.path.join(project_root, "data", "symbols")
+        
         os.makedirs(self.cache_dir, exist_ok=True)
         
         # Load symbols from provided files or download
@@ -63,6 +69,38 @@ class SymbolManager:
                 self.load_symbols(segment, file_path)
         elif download_missing:
             self.download_all_symbol_files()
+
+
+    # def __init__(self, 
+    #              symbol_files: Optional[Dict[str, str]] = None, 
+    #              download_missing: bool = True,
+    #              cache_dir: str = None):
+    #     """
+    #     Initialize the SymbolManager.
+        
+    #     Args:
+    #         symbol_files: Dictionary mapping segment names to file paths
+    #                       Example: {"NSE_CM": "path/to/nse_cm.json"}
+    #         download_missing: Whether to download missing files from FYERS
+    #         cache_dir: Directory to store downloaded symbol files
+    #     """
+    #     self.symbols = {}  # Will hold all symbol data by segment
+    #     self.lookup_cache = {}  # For quick lookups by criteria
+        
+    #     # Set up cache directory
+    #     self.cache_dir = cache_dir or os.path.join(
+    #         os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+    #         "data", 
+    #         "symbols"
+    #     )
+    #     os.makedirs(self.cache_dir, exist_ok=True)
+        
+    #     # Load symbols from provided files or download
+    #     if symbol_files:
+    #         for segment, file_path in symbol_files.items():
+    #             self.load_symbols(segment, file_path)
+    #     elif download_missing:
+    #         self.download_all_symbol_files()
     
     def download_symbol_file(self, segment: str, force: bool = False) -> bool:
         """

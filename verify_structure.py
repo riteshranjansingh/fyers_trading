@@ -1,20 +1,41 @@
 """
 Verification script to test project structure and functionality after restructuring.
 """
+"""
+Verification script to test project structure and functionality after restructuring.
+"""
 import sys
 import os
-import logging
-from datetime import datetime, timedelta
 import pandas as pd
+from datetime import datetime, timedelta
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# Add project root to Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Set up logging
+from src.utils.logging_config import setup_logging
+logger = setup_logging()
 
 # Import from project modules
 from src.api.connection import FyersConnection
 from src.api.data import FyersDataFetcher
 from src.api.symbol_manager import SymbolManager
+
+
+# import sys
+# import os
+# import logging
+# from datetime import datetime, timedelta
+# import pandas as pd
+
+# # Configure logging
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# logger = logging.getLogger(__name__)
+
+# # Import from project modules
+# from src.api.connection import FyersConnection
+# from src.api.data import FyersDataFetcher
+# from src.api.symbol_manager import SymbolManager
 
 def main():
     logger.info("Starting verification of project structure and functionality")

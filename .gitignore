@@ -56,3 +56,7 @@ htmlcov/
 
 # json files
 **/*.json
+
+
+# csv files
+**/*.csv
